@@ -45,11 +45,11 @@ def main():
     ms = ODBC_MS()
 
     timestamp = datetime.datetime(2018,6,26,10,0,0)
-    total = 100
+    total = 10000
     for num in range(0, total):
         timestamp += datetime.timedelta(minutes=5)
         print("timestamp: {0}".format(timestamp))
-        hourid = timestamp.year * 10000 + timestamp.month * 100 + timestamp.day
+        hourid = timestamp.year * 1000000 + timestamp.month * 10000 + timestamp.day * 100 + timestamp.hour
         print("hourid: {0}".format(hourid))
         timestamp5min = datetime.datetime(timestamp.year,timestamp.month,timestamp.day,timestamp.hour,
                                           int(timestamp.minute / 5 * 5), 0)
