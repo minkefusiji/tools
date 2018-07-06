@@ -9,7 +9,7 @@ class ODBC_MS:
         self.successful = 0
         
     def _GetConnect(self):
-        self.conn = pyodbc.connect(DRIVER='{SQL Server}', SERVER='localhost', 
+        self.conn = pyodbc.connect(DRIVER='{SQL Server}', SERVER='RTKPIData1-VIP.AdsPSSCPSQL-INT-CO4.CO4.ap.gbl', 
                                    DATABASE='RTKPIData', UID='scp', PWD='scp#1')
         cur = self.conn.cursor()
         if not cur:
@@ -44,9 +44,12 @@ class ODBC_MS:
 def main():
     ms = ODBC_MS()
 
-    timestamp = datetime.datetime(2018,6,26,10,0,0)
-    total = 10000
-    for num in range(0, total):
+    begin_timestamp = datetime.datetime(2018,7,6,9,0,0)
+    end_timestamp = datetime.datetime(2019,1,6,9,0,0)
+    timestamp = begin_timestamp
+    total = 0
+    while timestamp < end_timestamp:
+        total +=1
         timestamp += datetime.timedelta(minutes=5)
         print("timestamp: {0}".format(timestamp))
         hourid = timestamp.year * 1000000 + timestamp.month * 10000 + timestamp.day * 100 + timestamp.hour
