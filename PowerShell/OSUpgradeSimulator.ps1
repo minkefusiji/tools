@@ -10,9 +10,11 @@ if ([System.IO.File]::Exists($MachineListFile)) {
         {
             $ProcessingNumber += 1
             $items =  $line -split ","
-            $Command = $DMClientPath + "dmclient.exe -f -c ""SetMachineStatus -t F -m -s " + $items[0] + """"
+            #$Command = $DMClientPath + "dmclient.exe -f -c ""SetMachineStatus -t F -m -s " + $items[0] + """"
+            $Command = $DMClientPath + "ManualRepair.exe -a HardReboot -r""Simulate OSUpgrade"" -m " + $items[0]
             echo "Command:" $Command
-            echo "Result:" `$Command
+            $Result = iex $Command
+            echo "Result:" $Result
 
             if ($ProcessingNumber -ge 10)
             {
