@@ -1,7 +1,8 @@
-$MachineListFile = "machielist.txt"
-$DMClientPath = "D:\app\APTools.ap_06_25_10_8_5005_3622\"
+$MachineListFile = "F:\machielist.txt"
+$DMClientPath = "D:\app\APTools.ap_07_09_10_8_5005_3683\"
 $ProcessingNumber = 0
 
+Push-Location -Path $DMClientPath
 if ([System.IO.File]::Exists($MachineListFile)) {
     $FileContent = (Get-Content -Path $MachineListFile)
     foreach($line in $FileContent)
@@ -26,3 +27,4 @@ if ([System.IO.File]::Exists($MachineListFile)) {
 } else {
     echo ($MachineListFile + " doesn't exist")
 }
+Pop-Location
