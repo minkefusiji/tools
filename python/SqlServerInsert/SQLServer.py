@@ -2,14 +2,20 @@ import pyodbc
 import datetime
 
 
+DB_CH1_SCP98 = 'RTKPIData1-PHX-VIP.AdsPSSCPSQL-Prod-CH1.Ch1.ap.phx.gb'
+DB_BN1_SCP98 = 'RTKPIData1-PHX-VIP.AdsPSSCPSQL-Prod-BN1.Bn1.ap.phx.gb'
+DB_CO4_SCP98 = 'RTKPIData1-VIP.AdsPSSCPSQL-INT-CO4.CO4.ap.gbl'
+DB_LOCAL = 'localhost'
+
 class ODBC_MS:
+        
     def __init__(self):
         ''''' initialization '''  
         self.failed = 0
         self.successful = 0
         
-    def _GetConnect(self):
-        self.conn = pyodbc.connect(DRIVER='{SQL Server}', SERVER='RTKPIData1-VIP.AdsPSSCPSQL-INT-CO4.CO4.ap.gbl', 
+    def _GetConnect(self):    
+        self.conn = pyodbc.connect(DRIVER='{SQL Server}', SERVER=DB_LOCAL,
                                    DATABASE='RTKPIData', UID='scp', PWD='scp#1')
         cur = self.conn.cursor()
         if not cur:
