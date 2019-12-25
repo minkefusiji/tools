@@ -13,10 +13,12 @@ class ODBC_MS:
         ''''' initialization '''  
         self.failed = 0
         self.successful = 0
-        
-    def _GetConnect(self):    
         self.conn = pyodbc.connect(DRIVER='{SQL Server}', SERVER=DB_LOCAL,
                                    DATABASE='RTKPIData', UID='scp', PWD='scp#1')
+	def __del__(self): 
+        self.conn.close()
+		
+    def _GetConnect(self):    
         cur = self.conn.cursor()
         if not cur:
             raise (NameError, "connected failed!")
@@ -28,7 +30,6 @@ class ODBC_MS:
         cur.execute(sql)
         ret = cur.fetchall()
         cur.close()
-        self.conn.close()
 
         return ret
 
@@ -38,7 +39,6 @@ class ODBC_MS:
             cur.execute(sql)
             self.conn.commit()
             cur.close()
-            self.conn.close()
         except Exception as err:
             self.failed += 1
             print(err)
@@ -50,8 +50,8 @@ class ODBC_MS:
 def main():
     ms = ODBC_MS()
 
-    begin_timestamp = datetime.datetime(2018,7,6,9,0,0)
-    end_timestamp = datetime.datetime(2019,1,6,9,0,0)
+    begin_timestamp = datetime.datetime(2019,1,6,10,0,0)
+    end_timestamp = datetime.datetime(2020,1,6,9,0,0)
     timestamp = begin_timestamp
     total = 0
     while timestamp < end_timestamp:
